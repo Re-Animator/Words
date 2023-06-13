@@ -16,7 +16,7 @@ import com.example.wordsapp.databinding.FragmentLetterListBinding
 
 class LetterListFragment : Fragment() {
     private var _binding: FragmentLetterListBinding? = null
-    private val binding = _binding!!
+    private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
 
     private var isLinearLayoutManager = true
@@ -50,6 +50,20 @@ class LetterListFragment : Fragment() {
 
         val layoutButton = menu.findItem(R.id.action_switch_layout)
         setIcon(layoutButton)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_switch_layout -> {
+                isLinearLayoutManager = !isLinearLayoutManager
+
+                chooseLayout()
+                setIcon(item)
+
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun chooseLayout() {

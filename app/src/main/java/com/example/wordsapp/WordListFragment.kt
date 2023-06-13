@@ -13,6 +13,7 @@ import com.example.wordsapp.databinding.FragmentWordListBinding
 class WordListFragment : Fragment() {
     private var _binding: FragmentWordListBinding? = null
     private val binding  get() = _binding!!
+    private lateinit var letterId: String
 
     companion object {
         const val LETTER = "letter"
@@ -21,6 +22,10 @@ class WordListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            letterId = it.getString(LETTER).toString()
+        }
     }
 
     override fun onCreateView(
@@ -36,7 +41,7 @@ class WordListFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = WordAdapter(
-            activity?.intent?.extras?.getString(LETTER).toString(),
+            letterId,
             requireContext()
         )
 
